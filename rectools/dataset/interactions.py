@@ -70,7 +70,7 @@ class Interactions:
     @df.validator
     def _check_ids(self, _: str, df: pd.DataFrame) -> None:
         for col in (Columns.User, Columns.Item):
-            if not df[col].dtype.name.startswith(("int", "uint")):
+            if not np.issubdtype(df[col].dtype.type, np.int):
                 raise TypeError(f"Column '{col}' must be integer")
             if df[col].min() < 0:
                 raise ValueError(f"Column '{col}' values must be >= 0")
